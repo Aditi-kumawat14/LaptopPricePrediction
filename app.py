@@ -359,30 +359,24 @@ with st.sidebar:
             st.write(features)
 
 
+
 # Main Hero Section
 
 st.markdown(
     """
     <div class="hero">
-        <div class="eyebrow">
-            Laptop intelligence / price lab
-        </div>
-
-        <h1>
-            Find the right price<br>
-            for every machine.
-        </h1>
-
+        <div class="eyebrow">Laptop intelligence / price lab</div>
+        <h1>Find the right price<br>for every machine.</h1>
         <div class="hero-copy">
             Build a laptop profile from the details that matter,
             then get a model-backed price estimate in seconds.
         </div>
-
         <div class="hero-rule"></div>
     </div>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
+
 
 
 # Dashboard Metrics
