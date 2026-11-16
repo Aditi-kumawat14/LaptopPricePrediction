@@ -1,215 +1,176 @@
-# Laptop Price Prediction — End-to-End Machine Learning
+# Laptop Price Prediction | End-to-End Machine Learning
 
-An end-to-end machine learning project for predicting laptop prices in INR. The repository includes data ingestion, validation, preprocessing, model training, evaluation, artifact management, and a Streamlit application for interactive and batch predictions.
+An end-to-end Machine Learning application that predicts laptop prices in Indian Rupees (INR) based on laptop specifications. The project uses data preprocessing and regression models to generate price estimates through an interactive Streamlit web application.
 
-## Overview
+## Project Overview
 
-This project demonstrates a reproducible machine learning workflow from raw data to model inference:
+Laptop prices vary depending on specifications such as processor, RAM, storage, brand, and other hardware features.
 
-1. Load laptop data from MySQL or a local CSV file.
-2. Validate the dataset and remove duplicate records.
-3. Prepare numerical and categorical features.
-4. Apply imputation, scaling, and one-hot encoding.
-5. Train and compare regression models.
-6. Evaluate models using standard regression metrics.
-7. Save the selected model and preprocessing artifacts.
-8. Serve predictions through Streamlit.
+This project aims to estimate laptop prices using Machine Learning by analyzing laptop specifications and identifying patterns in the dataset.
 
-## Key features
+The trained model is integrated into a Streamlit application where users can enter laptop specifications or upload a CSV file to generate price predictions.
 
-- MySQL ingestion with configurable CSV fallback
-- Dataset validation and duplicate removal
-- Numerical and categorical preprocessing
-- Missing-value imputation
-- Feature scaling and one-hot encoding
+## Key Features
+
+- Machine Learning-based laptop price prediction
+- Numerical and categorical feature preprocessing
+- Missing value imputation
+- Feature scaling and One-Hot Encoding
 - Linear Regression and Random Forest model comparison
-- RMSE, MAE, and R² evaluation
-- Versioned model storage with an active model copy
-- Single-record prediction through Streamlit
-- Batch CSV prediction through Streamlit
-- Model smoke-test utility
-- GitHub Actions CI workflow
+- Model evaluation using MAE, RMSE, and R² score
+- Saved model and preprocessing artifacts
+- Interactive single-laptop price prediction
+- Batch prediction using CSV upload
+- Downloadable prediction results
+- Streamlit web application
 
-## Repository structure
+## Technologies Used
+
+| Category | Technologies |
+|---|---|
+| Programming Language | Python |
+| Data Processing | Pandas, NumPy |
+| Machine Learning | Scikit-learn |
+| Model Storage | Joblib |
+| Database | MySQL |
+| Web Framework | Streamlit |
+| Version Control | Git, GitHub |
+
+## Project Workflow
+
+1. **Data Ingestion:** Load laptop data from MySQL or a local CSV file.
+2. **Data Validation:** Validate the dataset and remove duplicate records.
+3. **Data Preprocessing:** Handle missing values and prepare numerical and categorical features.
+4. **Feature Transformation:** Apply scaling and One-Hot Encoding.
+5. **Model Training:** Train and compare regression models.
+6. **Model Evaluation:** Evaluate model performance using MAE, RMSE, and R².
+7. **Model Saving:** Store the trained model and preprocessing artifacts.
+8. **Prediction:** Generate laptop price estimates using Streamlit.
+
+## Streamlit Application
+
+The application provides two prediction options:
+
+### 1. Single Laptop Prediction
+
+- Enter laptop specifications through the application.
+- Select categorical features and enter numerical values.
+- Generate an estimated laptop price.
+- Download the prediction result as a CSV file.
+
+### 2. Batch Laptop Prediction
+
+- Upload a CSV file containing multiple laptop specifications.
+- Preview the uploaded dataset.
+- Generate predictions for multiple laptops.
+- Download the results as a CSV file.
+
+## Repository Structure
 
 ```text
-.
-├── laptop_price/
-│   ├── components/
-│   │   ├── data_ingestion.py
-│   │   ├── data_validation.py
-│   │   ├── data_transformation.py
-│   │   ├── model_trainer.py
-│   │   └── model_evaluation.py
-│   ├── entity/                 # Configuration and artifact data classes
-│   ├── pipeline/               # Training-pipeline orchestration
-│   ├── prediction/             # Batch prediction utilities
-│   ├── config.py
-│   ├── exception.py
-│   ├── logger.py
-│   └── utils.py
-├── app.py                      # Streamlit inference application
-├── main.py                     # Training-pipeline entry point
-├── check_model.py              # Model prediction smoke test
-├── prediction/models/          # Versioned models and active model copy
-├── artifacts/                  # Generated datasets, preprocessors, and metrics
+LaptopPricePrediction/
+│
+├── app.py
+├── README.md
 ├── requirements.txt
-├── .env.example
-└── README.md
+├── .gitignore
+│
+├── artifacts/
+│   └── transformed/
+│       ├── preprocessor.joblib
+│       ├── feature_list.json
+│       └── train.csv
+│
+└── prediction/
+    └── models/
+        └── current_model.joblib
 ```
 
-> `artifacts/` and generated model files are runtime outputs. They may be ignored by Git and must be created or supplied before inference in a fresh environment.
+## Installation and Setup
 
-## Requirements
-
-- Python 3.10 or 3.11 recommended
-- pip and virtual-environment support
-- MySQL 8.0, if using database ingestion
-- A compatible dataset containing the target column `Price_INR`
-
-## Installation
-
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/shubhamwaghmare108/Machine_Learning_E2EP.git
-cd Machine_Learning_E2EP
+git clone https://github.com/Aditi-kumawat14/LaptopPricePrediction.git
+cd LaptopPricePrediction
 ```
 
-### 2. Create and activate a virtual environment
+### 2. Create a Virtual Environment
 
-**Windows**
+**Windows:**
 
 ```powershell
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
-**macOS/Linux**
+**macOS/Linux:**
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install dependencies
+### 3. Install Dependencies
 
 ```bash
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 4. Configure environment variables
-
-Create a local `.env` file from the provided template:
-
-**Windows**
-
-```powershell
-copy .env.example .env
-```
-
-**macOS/Linux**
-
-```bash
-cp .env.example .env
-```
-
-Configure the database connection values when using MySQL. Alternatively, set `LAPTOP_DATA_CSV` to the path of a local CSV file.
-
-The input dataset must include the target column:
-
-```text
-Price_INR
-```
-
-Do not commit `.env`, passwords, API keys, or other secrets.
-
-## Run the training pipeline
-
-From the repository root:
-
-```bash
-python main.py
-```
-
-The pipeline generates the data, preprocessing, evaluation, and model artifacts used by the prediction application. The active model is written to:
-
-```text
-prediction/models/current_model.joblib
-```
-
-## Run the Streamlit application
+### 4. Run the Application
 
 ```bash
 streamlit run app.py
 ```
 
-The application provides:
+The application will open in your default browser.
 
-- Single-laptop price prediction
-- Batch prediction from a CSV file
+## Model Artifacts
 
-For prediction inputs, use the feature names and data types expected by the preprocessing artifact generated during training.
+The application uses previously generated Machine Learning artifacts:
 
-## Validate the model
+| Artifact | Purpose |
+|---|---|
+| `current_model.joblib` | Trained model used for price prediction |
+| `preprocessor.joblib` | Applies the required preprocessing transformations |
+| `feature_list.json` | Stores numerical and categorical feature information |
+| `train.csv` | Provides training feature data for default values and categorical options |
 
-Run the smoke-test script after training:
+These files are required for the Streamlit application to perform predictions.
 
-```bash
-python check_model.py
-```
+## Deployment
 
-If `artifacts/unseen_test/unseen_5.csv` is unavailable, the script falls back to the generated transformed test dataset when supported by the project configuration.
+The application is deployed using Streamlit Community Cloud.
 
-## Generated artifacts
+Deployment configuration:
 
-Typical runtime outputs include:
+- **Repository:** Aditi-kumawat14/LaptopPricePrediction
+- **Branch:** main
+- **Main file:** app.py
 
-```text
-artifacts/
-├── raw/
-├── transformed/
-│   ├── train.csv
-│   ├── test.csv
-│   ├── preprocessor.joblib
-│   └── feature_list.json
-├── model/
-└── evaluation/
-```
-
-The exact artifact names depend on the current pipeline configuration. Ensure that the model and preprocessing artifacts are available in deployment environments.
-
-## Continuous integration
-
-The repository uses GitHub Actions to run automated checks on the project. Before pushing changes locally, it is useful to run the same basic checks:
-
-```bash
-python -m compileall laptop_price app.py main.py check_model.py
-```
-
-Then verify that the training and inference workflows execute successfully in the target environment.
-
-## Deployment notes
-
-For Streamlit deployment:
-
-1. Push the repository to GitHub.
-2. Ensure the required dependencies are listed in `requirements.txt`.
-3. Provide model and preprocessing artifacts through the deployment workflow, or run the training pipeline during setup.
-4. Configure required environment variables using the deployment platform's secrets manager.
-5. Set the application entry point to `app.py`.
-6. Test both single-record and batch prediction after deployment.
-
-Do not place database credentials or private model files directly in the repository.
+The application loads the saved model and preprocessing artifacts directly from the repository.
 
 ## Limitations
 
-- Prediction quality depends on the training data, feature coverage, and preprocessing assumptions.
-- The default workflow uses a holdout test split for model comparison.
-- Model performance may change when the dataset or feature schema changes.
-- Production use requires dependency pinning, artifact versioning, monitoring, and periodic retraining.
+- Prediction accuracy depends on the quality and coverage of the training dataset.
+- Estimated prices may differ from actual market prices.
+- Predictions depend on the features provided by the user.
+- Model performance may change when new laptop models and market trends emerge.
 
-## License
+## Future Improvements
 
-No license has been specified in this repository. Add a license file before distributing the project under explicit open-source terms.
+- Add more laptop specifications and updated market data.
+- Improve prediction accuracy through model optimization.
+- Add model explainability to understand feature contributions.
+- Monitor prediction performance using new data.
+
+## Author
+
+**Aditi Kumawat**
+
+- GitHub: https://github.com/Aditi-kumawat14
+
+---
+
+If you find this project useful, feel free to explore the repository and share your feedback.
